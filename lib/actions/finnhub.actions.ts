@@ -107,11 +107,11 @@ export const searchStocks = cache(async (query?: string): Promise<StockWithWatch
             return [];
         }
 
-        const trimmed = typeof query === 'string' ? query.trim() : '';
+        const trimmedQuery = typeof query === 'string' ? query.trim() : '';
 
         let results: FinnhubSearchResult[] = [];
 
-        if (!trimmed) {
+        if (!trimmedQuery) {
             // Fetch top 10 popular symbols' profiles
             const top = POPULAR_STOCK_SYMBOLS.slice(0, 10);
             const profiles = await Promise.all(
@@ -148,12 +148,12 @@ export const searchStocks = cache(async (query?: string): Promise<StockWithWatch
                 })
                 .filter((x): x is FinnhubSearchResult => Boolean(x));
         } else {
-            const url = `${FINNHUB_BASE_URL}/search?q=${encodeURIComponent(trimmed)}&token=${token}`;
+            const url = `${FINNHUB_BASE_URL}/search?q=${encodeURIComponent(trimmedQuery)}&token=${token}`;
             const data = await fetchJSON<FinnhubSearchResponse>(url, 1800);
             results = Array.isArray(data?.result) ? data.result : [];
         }
 
-        const mapped: StockWithWatchlistStatus[] = results
+        const stocksWatchList: StockWithWatchlistStatus[] = results
             .map((r) => {
                 const upper = (r.symbol || '').toUpperCase();
                 const name = r.description || upper;
@@ -172,7 +172,7 @@ export const searchStocks = cache(async (query?: string): Promise<StockWithWatch
             })
             .slice(0, 15);
 
-        return mapped;
+        return stocksWatchList;
     } catch (err) {
         console.error('Error in stock search:', err);
         return [];
