@@ -31,7 +31,7 @@ export const sendNewsSummaryEmail = async (
         .replace('{{newsContent}}', newsContent);
 
     const mailOptions = {
-        from: `"Trading Signals News" <tradingsignalst@mail.com>>`,
+        from: `"Trading Signals News" <tradingsignals@mail.com>>`,
         to: email,
         subject: `📈 Market News Summary Today - ${date}`,
         text: `Today's market news summary from Trading Signals`,

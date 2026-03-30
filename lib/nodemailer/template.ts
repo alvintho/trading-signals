@@ -261,7 +261,7 @@ export const NEWS_SUMMARY_EMAIL_TEMPLATE = `<!DOCTYPE html>
                     <!-- Header with Logo -->
                     <tr>
                         <td align="left" class="mobile-header-padding" style="padding: 40px 40px 20px 40px;">
-                            <img src="/assets/icons/logo.svg" alt="Trading Signals Logo" width="150" style="max-width: 100%; height: auto;">
+                            <img src="https://ik.imagekit.io/bvgh9vkkw/trading_signals_icon.svg?updatedAt=1774884269133" alt="Trading Signals Logo" width="120" height="120" style="max-width: 100%; height: auto;">
                         </td>
                     </tr>
                     
