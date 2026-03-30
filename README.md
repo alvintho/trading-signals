@@ -1,8 +1,25 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# [Trading Signals - Real-Time Stock Market App & Market News Aggregation](https://trading-signals-stock-tracker-app.vercel.app/)
+
+A comprehensive real-time stock market application built with **Next.js 15**, **TypeScript**, and **Tailwind CSS**. This platform provides users with live stock market insights, interactive charts, personalized market news alerts, and the ability to explore detailed company insights.
+
+![dashboard](readme-assets/dashboard.png)
+
+![stock analysis](readme-assets/stock-analysis.png)
+
+![watchlist.png](readme-assets/watchlist.png)
+
+### Key Features
+- **Real-Time Data**: Seamless integration with the `Finnhub API` and `TradingView` for live market tracking, stock searching, and sophisticated visualization.
+- **AI-Powered Insights**: Leveraging `Gemini AI` to generate personalized market news summaries based on specific prompt details.
+- **Watchlist Management**: Securely manage your favorite stocks with full CRUD operations, backed by `MongoDB`.
+- **Advanced Authentication**: Robust user authentication and session management using `Better Auth`.
+- **Event-Driven Workflows**: Asynchronous background jobs, personalized alerts, and serverless functions powered by `Inngest`.
+- **Email Notifications**: Automated email templates and delivery via `Nodemailer`.
+- **Modern UI**: A sleek, responsive user interface built with `Radix UI` primitives and `Shadcn` components.
 
 ## Getting Started
 
-First, run the development server:
+### 1. Run the development server:
 
 ```bash
 npm run dev
@@ -20,17 +37,11 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-## Learn More
+### 2. Run Inngest Server in a Separate Terminal
+```aiignore
+npx inngest-cli@1.11.9 dev
+```
 
-To learn more about Next.js, take a look at the following resources:
+Open [http://localhost:8288](http://localhost:8288) with your browser to see the result.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+![img.png](readme-assets/inngest-server.png)
