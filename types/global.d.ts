@@ -8,6 +8,7 @@ declare global {
         fullName: string;
         email: string;
         password: string;
+        confirmPassword: string;
         country: string;
         investmentGoals: string;
         riskTolerance: string;
