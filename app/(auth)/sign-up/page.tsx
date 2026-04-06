@@ -47,14 +47,14 @@ const SignUpPage = () => {
             // Server action caught error and returned it
             toast.error('Sign up failed.', {
                 description: result.error || 'Failed to create an account',
-                descriptionClassName: "text-red-300!",
+                descriptionClassName: "!text-red-300",
             });
         } catch (e: any) {
             // Handle critical/unexpected errors (e.g. network failure)
             console.error('Critical sign-up error:', e);
             toast.error('Sign up failed.', {
                 description: 'A network error occurred. Please check your connection.',
-                descriptionClassName: "text-red-300!",
+                descriptionClassName: "!text-red-300",
             });
         }
     }
