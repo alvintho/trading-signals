@@ -35,14 +35,14 @@ const SignInPage = () => {
             // Server action caught error and returned it
             toast.error('Sign in failed.', {
                 description: result.error || 'Invalid credentials',
-                descriptionClassName: "text-red-300!",
+                descriptionClassName: "!text-red-300",
             });
         } catch (e) {
             // Handle critical/unexpected errors (e.g. network failure)
             console.error('Critical sign-in error:', e);
             toast.error('Sign in failed.', {
                 description: 'A network error occurred. Please check your connection.',
-                descriptionClassName: "text-red-300!",
+                descriptionClassName: "!text-red-300",
             });
         }
     }

@@ -205,7 +205,7 @@ describe('SignUpPage', () => {
         });
     });
 
-    it('applies descriptionClassName "text-red-300!" to the server-error toast', async () => {
+    it('applies descriptionClassName "!text-red-300" to the server-error toast', async () => {
         mockSignUpWithEmail.mockResolvedValueOnce({ success: false, error: 'Some error' });
 
         render(<SignUpPage />);
@@ -215,7 +215,7 @@ describe('SignUpPage', () => {
         await waitFor(() => {
             expect(mockToastError).toHaveBeenCalledWith(
                 'Sign up failed.',
-                expect.objectContaining({ descriptionClassName: 'text-red-300!' }),
+                expect.objectContaining({ descriptionClassName: '!text-red-300' }),
             );
         });
     });
@@ -242,7 +242,7 @@ describe('SignUpPage', () => {
         expect(mockPush).not.toHaveBeenCalled();
     });
 
-    it('applies descriptionClassName "text-red-300!" to the network-error toast', async () => {
+    it('applies descriptionClassName "!text-red-300" to the network-error toast', async () => {
         mockSignUpWithEmail.mockRejectedValueOnce(new Error('timeout'));
 
         render(<SignUpPage />);
@@ -252,7 +252,7 @@ describe('SignUpPage', () => {
         await waitFor(() => {
             expect(mockToastError).toHaveBeenCalledWith(
                 'Sign up failed.',
-                expect.objectContaining({ descriptionClassName: 'text-red-300!' }),
+                expect.objectContaining({ descriptionClassName: '!text-red-300' }),
             );
         });
     });
