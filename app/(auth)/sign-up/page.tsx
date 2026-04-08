@@ -49,7 +49,7 @@ const SignUpPage = () => {
                 description: result.error || 'Failed to create an account',
                 descriptionClassName: "!text-red-300",
             });
-        } catch (e: any) {
+        } catch (e) {
             // Handle critical/unexpected errors (e.g. network failure)
             console.error('Critical sign-up error:', e);
             toast.error('Sign up failed.', {
