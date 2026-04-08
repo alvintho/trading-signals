@@ -24,13 +24,25 @@ const SignInPage = () => {
     });
 
     const onSubmit: SubmitHandler<SignInFormData> = async (data: SignInFormData) => {
-        try{
-            const result = await signInWithEmail(data)
-            if (result.success) router.push("/");
-        } catch (e) {
-            console.error(e);
+        try {
+            const result = await signInWithEmail(data);
+
+            if (result.success) {
+                router.push("/");
+                return;
+            }
+
+            // Server action caught error and returned it
             toast.error('Sign in failed.', {
-                description: e instanceof Error ? e.message : 'Failed to sign in',
+                description: result.error || 'Invalid credentials',
+                descriptionClassName: "text-red-300!",
+            });
+        } catch (e: any) {
+            // Handle critical/unexpected errors (e.g. network failure)
+            console.error('Critical sign-in error:', e);
+            toast.error('Sign in failed.', {
+                description: 'A network error occurred. Please check your connection.',
+                descriptionClassName: "!text-red-300",
             });
         }
     }
@@ -46,7 +58,13 @@ const SignInPage = () => {
                     placeholder="contact@mail.com"
                     register={register}
                     error={errors.email}
-                    validation={{ required: 'Email name is required', pattern: /^\w+@\w+\.\w+$/, message: 'Email address is required' }}
+                    validation={{ 
+                        required: 'Email is required', 
+                        pattern: {
+                            value: /^\w+@\w+\.\w+$/,
+                            message: 'Invalid email address'
+                        }
+                    }}
                 />
 
                 <InputField
@@ -56,7 +74,7 @@ const SignInPage = () => {
                     type="password"
                     register={register}
                     error={errors.password}
-                    validation={{ required: 'Password is required', minLength: 8 }}
+                    validation={{ required: 'Password is required', minLength: { value: 8, message: "Password must be at least 8 characters" } }}
                 />
 
                 <Button type="submit" disabled={isSubmitting} className="yellow-btn w-full mt-5">
