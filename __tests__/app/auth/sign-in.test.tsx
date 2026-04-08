@@ -1,4 +1,3 @@
-import React from 'react';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -24,12 +23,20 @@ vi.mock('sonner', () => ({
 }));
 
 vi.mock('@/lib/actions/auth.actions', () => ({
-    signInWithEmail: (...args: any[]) => mockSignInWithEmail(...args),
+    signInWithEmail: (...args: unknown[]) => mockSignInWithEmail(...args),
 }));
 
 // Render child form components as simple HTML so we avoid their own dependency chains
 vi.mock('@/components/forms/InputField', () => ({
-    default: ({ name, label, placeholder, type = 'text', register, error, validation }: any) => {
+    default: ({ name, label, placeholder, type = 'text', register, error, validation }: {
+        name: string;
+        label: string;
+        placeholder: string;
+        type?: string;
+        register: (name: string, validation?: unknown) => { ref: React.Ref<HTMLInputElement>; [key: string]: unknown };
+        error?: { message?: string };
+        validation?: unknown;
+    }) => {
         const { ref, ...rest } = register(name, validation);
         return (
             <div>
@@ -42,11 +49,11 @@ vi.mock('@/components/forms/InputField', () => ({
 }));
 
 vi.mock('@/components/ui/button', () => ({
-    Button: ({ children, ...props }: any) => <button {...props}>{children}</button>,
+    Button: ({ children, ...props }: { children: React.ReactNode } & React.ButtonHTMLAttributes<HTMLButtonElement>) => <button {...props}>{children}</button>,
 }));
 
 vi.mock('@/components/forms/FooterLink', () => ({
-    default: ({ text, linkText, href }: any) => (
+    default: ({ text, linkText, href }: { text: string; linkText: string; href: string }) => (
         <a href={href}>{text} {linkText}</a>
     ),
 }));

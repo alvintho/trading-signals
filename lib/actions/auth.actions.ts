@@ -27,9 +27,9 @@ export const signUpWithEmail = async ({ email, password, fullName, country, inve
         return { success: true, data: response }
 
     } catch (e: unknown) {
-        const internalMessage = e instanceof Error ? e.message : 'Unknown error';
-        console.error('Sign Up failed', { internalMessage });
-        return { success: false, error: 'Unable to sign up. Please ensure fields are correct and try again.' };
+        const internalMessage = e instanceof Error ? e.message : '';
+        console.error('Sign Up failed', { internalMessage: internalMessage || 'Unknown error' });
+        return { success: false, error: internalMessage || 'Sign Up Failed' };
     }
 }
 
@@ -40,9 +40,9 @@ export const signInWithEmail = async ({ email, password }: SignInFormData) => {
         })
         return { success: true, data: response }
     } catch (e: unknown) {
-        const internalMessage = e instanceof Error ? e.message : 'Unknown error';
-        console.error('Sign In failed', { internalMessage })
-        return { success: false, error: 'Invalid credentials' };
+        const internalMessage = e instanceof Error ? e.message : '';
+        console.error('Sign In failed', { internalMessage: internalMessage || 'Unknown error' })
+        return { success: false, error: internalMessage || 'Sign In Failed' };
     }
 }
 

@@ -24,11 +24,19 @@ vi.mock('sonner', () => ({
 }));
 
 vi.mock('@/lib/actions/auth.actions', () => ({
-    signUpWithEmail: (...args: any[]) => mockSignUpWithEmail(...args),
+    signUpWithEmail: (...args: unknown[]) => mockSignUpWithEmail(...args),
 }));
 
 vi.mock('@/components/forms/InputField', () => ({
-    default: ({ name, label, placeholder, type = 'text', register, error, validation }: any) => {
+    default: ({ name, label, placeholder, type = 'text', register, error, validation }: {
+        name: string;
+        label: string;
+        placeholder: string;
+        type?: string;
+        register: (name: string, validation?: unknown) => { ref: React.Ref<HTMLInputElement>; [key: string]: unknown };
+        error?: { message?: string };
+        validation?: unknown;
+    }) => {
         const { ref, ...rest } = register(name, validation);
         return (
             <div>
@@ -41,11 +49,11 @@ vi.mock('@/components/forms/InputField', () => ({
 }));
 
 vi.mock('@/components/ui/button', () => ({
-    Button: ({ children, ...props }: any) => <button {...props}>{children}</button>,
+    Button: ({ children, ...props }: { children: React.ReactNode } & React.ButtonHTMLAttributes<HTMLButtonElement>) => <button {...props}>{children}</button>,
 }));
 
 vi.mock('@/components/forms/FooterLink', () => ({
-    default: ({ text, linkText, href }: any) => (
+    default: ({ text, linkText, href }: { text: string; linkText: string; href: string }) => (
         <a href={href}>{text} {linkText}</a>
     ),
 }));
@@ -53,11 +61,17 @@ vi.mock('@/components/forms/FooterLink', () => ({
 // SelectField and CountrySelectField use react-hook-form Controller internally — mock them
 // so the sign-up form renders without a real Select/Country library
 vi.mock('@/components/forms/SelectField', () => ({
-    default: ({ name, label, options, control, error }: any) => (
+    default: ({ name, label, options, error }: {
+        name: string;
+        label: string;
+        options: { value: string; label: string }[];
+        control: unknown;
+        error?: { message?: string };
+    }) => (
         <div>
             <label htmlFor={name}>{label}</label>
             <select id={name} name={name}>
-                {options.map((o: any) => (
+                {options.map((o: { value: string; label: string }) => (
                     <option key={o.value} value={o.value}>{o.label}</option>
                 ))}
             </select>
@@ -67,7 +81,11 @@ vi.mock('@/components/forms/SelectField', () => ({
 }));
 
 vi.mock('@/components/forms/CountrySelectField', () => ({
-    CountrySelectField: ({ name, label, error }: any) => (
+    CountrySelectField: ({ name, label, error }: {
+        name: string;
+        label: string;
+        error?: { message?: string };
+    }) => (
         <div>
             <label htmlFor={name}>{label}</label>
             <select id={name} name={name}>
